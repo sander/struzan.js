@@ -1,0 +1,57 @@
+<!doctype html>
+<head>
+  <title>How to customise the embedded Vimeo preview</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vpreviews.css">
+</head>
+
+<a href="http://sanderdijkhuis.nl/">
+  <header class="site">
+    <h1>Sander Dijkhuis</h1>
+    <p>April 6, 2015</p>
+  </header>
+</a>
+
+<h1>How to customise the embedded Vimeo preview</h1>
+
+<p>Videos embedded from Vimeo display a lot of visual clutter before playing. You can replace it with a custom preview box. See the &lsquo;before&rsquo; and &lsquo;after&rsquo;:</p>
+
+<figure>
+  <iframe style="display: inline-block;" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" src="https://player.vimeo.com/video/120903978?color=df5a3f&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" height="191" width="340"></iframe>
+  <a class="vimeo" href="https://vimeo.com/120903978" data-color="df5a3f">
+    <div>&nbsp;&#9654;</div>
+  </a>
+</figure>
+
+<p>To do so, refer to your videos with link tags such as this:</p>
+
+<pre>
+&lt;a class="vimeo" href="https://vimeo.com/120903978" data-color="df5a3f"&gt;
+    &lt;!-- custom preview <abbr>HTML</abbr> goes here --&gt;
+&lt;/a&gt;
+</pre>
+
+<p>Replace the Vimeo <abbr>URL</abbr> so that it ends with your video&rsquo;s numeric identifier. You may also want to use a different class name (be sure to replace it everywhere), and choose a custom control colour. At the bottom of the <abbr>HTML</abbr> code, add:</p>
+
+<pre>
+&lt;script src="struzan.js"&gt;&lt;/script&gt;
+&lt;script&gt;struzan('.vimeo');&lt;/script&gt;
+</pre>
+
+<p>Make sure the first script refers to a copy of <a href="struzan.js">struzan.js</a> on your web server. If you have customised the class name in <abbr>HTML</abbr>, also change the selector in the struzan() call. Finally, add some <abbr>CSS</abbr> code to style your video box, such as:</p>
+
+<pre>
+.vimeo { display: inline-block; width: 680px; height: 382px; }
+.vimeo.loading { outline: 2px dotted; }
+</pre>
+
+<p>The struzan.js script adds the video thumbnail as a background image to the &lt;a&gt; element. When the visitor clicks it, the Vimeo iframe starts loading and the &lt;a&gt; element gets an additional &lsquo;loading&rsquo; class name. When the iframe is loaded, the &lt;a&gt; element is fully replaced.</p>
+
+<aside>
+  <p>struzan.js is named after the artist who made the Indiana Jones and Star Wars movie posters. Improvements to struzan.js are welcome <a href="https://github.com/sander/struzan.js">through GitHub</a>. For example, help add YouTube support or increase browser compatibility.</p>
+</aside>
+
+<script src="struzan.js"></script>
+<script>struzan('.vimeo');</script>
